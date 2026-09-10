@@ -25,6 +25,19 @@ services:
       - mongo
       - redis
 
+  executor:
+    build: ./executor
+    ports:
+      - "6000:6000"
+    volumes:
+      - ./executor:/app
+      - /app/node_modules
+      - /var/run/docker.sock:/var/run/docker.sock
+    env_file:
+      - ./executor/.env
+    depends_on:
+      - server
+
   mongo:
     image: mongo:7
     ports:
