@@ -1,6 +1,11 @@
 const Redis = require('ioredis');
 
-const redis = new Redis(process.env.REDIS_URL);
+const getRedisConfig = () => {
+  const url = process.env.REDIS_URL || 'redis://localhost:6379';
+  return new Redis(url);
+};
+
+const redis = getRedisConfig();
 
 redis.on('connect', () => console.log('Redis connected'));
 redis.on('error', (err) => console.error('Redis error:', err.message));
