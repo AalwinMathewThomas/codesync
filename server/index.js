@@ -15,30 +15,30 @@ const executeRoutes = require('./routes/execute');
 const app = express();
 const server = http.createServer(app);
 
+// Strip trailing slash from CLIENT_URL if present
+const clientUrl = (process.env.CLIENT_URL || '').replace(/\/$/, '');
+
 const allowedOrigins = [
   'http://localhost:5173',
-  process.env.CLIENT_URL
-].filter(Boolean);  
+  clientUrl,
+].filter(Boolean);
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    if (origin.endsWith('.vercel.app')) return callback(null, true);
+    callback(new Error('Not allowed by CORS'));
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
+};
 
 const io = new Server(server, {
-  cors: {
-    origin: allowedOrigins,
-    methods: ['GET', 'POST'],
-    credentials: true
-  }
+  cors: corsOptions
 });
 
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true
-}));
-
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 
