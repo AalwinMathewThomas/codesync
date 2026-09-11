@@ -3,7 +3,7 @@
 A real-time collaborative code editor built for pair programming and technical interviews. Multiple users can join a shared room, write and edit code together live, and communicate via built-in chat.
 
 **Live Demo → [codesync-ruby.vercel.app](https://codesync-ruby.vercel.app)**  
-**Demo Video → [[add your video link here](https://jumpshare.com/s/FW1g712XXpMdfP4PXH8b)]**
+**Demo Video → [[Video Link](https://jumpshare.com/s/FW1g712XXpMdfP4PXH8b)]**
 
 ![CodeSync Editor](add-your-screenshot-here.png)
 <img width="950" height="409" alt="Screenshot 2026-09-12 012012" src="https://github.com/user-attachments/assets/27ff84a0-187e-48cf-87a9-ca2e24fc69c7" />
